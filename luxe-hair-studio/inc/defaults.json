@@ -144,6 +144,78 @@
           "animation": "fade",
           "css": ""
         }
+      },
+      {
+        "uid": "sl-amenities",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "amenities",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
+      },
+      {
+        "uid": "sl-marquee",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "marquee",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
+      },
+      {
+        "uid": "sl-stats",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "stats",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
+      },
+      {
+        "uid": "sl-quiz",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "quiz",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
+      },
+      {
+        "uid": "sl-tiers",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "tiers",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
+      },
+      {
+        "uid": "sl-booking-addons",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "booking-addons",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
       }
     ],
     "library": [],
