@@ -204,6 +204,18 @@
           "animation": "fade",
           "css": ""
         }
+      },
+      {
+        "uid": "sl-booking-addons",
+        "enabled": true,
+        "kind": "builtin",
+        "id": "booking-addons",
+        "settings": {
+          "bg": "",
+          "spacing": "default",
+          "animation": "fade",
+          "css": ""
+        }
       }
     ],
     "library": [],
