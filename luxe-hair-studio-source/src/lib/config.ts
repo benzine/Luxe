@@ -21,6 +21,12 @@ export interface GalleryItem { id: number; title: string; kind: string; stylist:
 export interface Testimonial { quote: string; name: string; service: string; stars: number; }
 export interface Product { name: string; kind: string; desc: string; price: number; }
 export interface Heading { title: string; italic: string; desc: string; }
+export interface Amenity { icon: string; title: string; desc: string; }
+export interface Scent { name: string; note: string; }
+export interface Stat { value: string; label: string; }
+export interface QuizQuestion { id: string; q: string; options: { label: string; score: Record<string, number>; }[]; }
+export interface BookingAddon { name: string; desc: string; price: number; icon: string; }
+export interface Tier { name: string; level: string; cutPrice: number; colourPrice: number; desc: string; }
 
 /* A custom (admin-added) section. When present on a slot, the slot renders
    this instead of a built-in section. */
@@ -65,6 +71,14 @@ export interface SiteConfig {
      a data-url (from an upload) or an absolute URL. Components call
      useImage(key), which falls back to the bundled IMG map when unset. */
   images: Record<string, string>;
+  /* New sections for amenities, scents, stats, quiz, booking addons, tiers */
+  amenities: Amenity[];
+  scents: Scent[];
+  marqueeWords: string[];
+  stats: Stat[];
+  quizQuestions: QuizQuestion[];
+  bookingAddons: BookingAddon[];
+  tiers: Tier[];
 }
 
 const sp = (): Slot => ({ uid: "", id: "", enabled: true });
@@ -222,6 +236,12 @@ export const DEFAULT_CONFIG: SiteConfig = {
     { ...sp(), uid: "sl-mirror", id: "mirror" },
     { ...sp(), uid: "sl-booking", id: "booking" },
     { ...sp(), uid: "sl-experience", id: "experience" },
+    { ...sp(), uid: "sl-amenities", id: "amenities" },
+    { ...sp(), uid: "sl-marquee", id: "marquee" },
+    { ...sp(), uid: "sl-stats", id: "stats" },
+    { ...sp(), uid: "sl-quiz", id: "quiz" },
+    { ...sp(), uid: "sl-tiers", id: "tiers" },
+    { ...sp(), uid: "sl-booking-addons", id: "booking-addons" },
   ],
   mirror: structuredClone(DEFAULT_MIRROR),
   salon: {
@@ -231,6 +251,41 @@ export const DEFAULT_CONFIG: SiteConfig = {
   },
   labels: { ...DEFAULT_LABELS },
   images: { ...DEFAULT_IMAGES },
+  amenities: [
+    { icon: "coffee", title: "Coffee & tea cart", desc: "Single-origin espresso, jasmine pearls, oat anything." },
+    { icon: "flower", title: "Fresh flowers, weekly", desc: "The peonies arrive every Tuesday. It's a whole event." },
+    { icon: "drop", title: "Head massage rituals", desc: "Warm oil and ten minutes that erase the week." },
+    { icon: "gem", title: "Quiet alcove chairs", desc: "Two chairs behind the arch, for introverts and naps." },
+  ],
+  scents: [
+    { name: "Lavender", note: "Calming" },
+    { name: "Jasmine", note: "Uplifting" },
+    { name: "Warm vanilla", note: "Comforting" },
+    { name: "Bergamot", note: "Energizing" },
+    { name: "Fresh linen", note: "Clean" },
+  ],
+  marqueeWords: ["Precision Cuts", "Balayage & Colour", "Bridal Artistry", "Scalp Rituals", "Editorial Styling", "Liquid Shine", "The Quiet Luxury"],
+  stats: [
+    { value: "12+", label: "Years of craft" },
+    { value: "8k+", label: "Happy clients" },
+    { value: "15", label: "Awards won" },
+    { value: "100%", label: "Dedication" },
+  ],
+  quizQuestions: [
+    { id: "texture", q: "What's your hair texture?", options: [{ label: "Fine", score: { amara: 1, sofia: 2, elena: 1 } }, { label: "Medium", score: { amara: 2, sofia: 2, elena: 2 } }, { label: "Coarse/Coily", score: { amara: 3, sofia: 1, elena: 1 } }] },
+    { id: "goal", q: "What's your goal?", options: [{ label: "Low maintenance", score: { amara: 1, sofia: 1, elena: 2 } }, { label: "Bold change", score: { amara: 1, sofia: 3, elena: 2 } }, { label: "Special event", score: { amara: 1, sofia: 1, elena: 3 } }] },
+  ],
+  bookingAddons: [
+    { name: "Express scalp treatment", desc: "10-min detox massage", price: 25, icon: "sparkle" },
+    { name: "Bond repair booster", desc: "Olaplex stand-alone", price: 35, icon: "drop" },
+    { name: "Take-home styling kit", desc: "Mini products to recreate the look", price: 45, icon: "bag" },
+    { name: "Champagne upgrade", desc: "Dom Pérignon at the basin", price: 55, icon: "glass" },
+  ],
+  tiers: [
+    { name: "Junior", level: "Rising talent", cutPrice: 85, colourPrice: 180, desc: "Recently certified, endlessly passionate. Trained in our signature methods." },
+    { name: "Senior", level: "Chair leader", cutPrice: 110, colourPrice: 240, desc: "Five years plus, with a book full of regulars. Precision meets intuition." },
+    { name: "Master", level: "Atelier head", cutPrice: 140, colourPrice: 310, desc: "Fifteen years minimum. The hands behind our award-winning transformations." },
+  ],
 };
 
 /* ── store ── */

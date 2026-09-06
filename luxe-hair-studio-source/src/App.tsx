@@ -13,6 +13,11 @@ import Mirror from "./components/Mirror";
 import Services, { type BookPrefill } from "./components/Services";
 import Stylists from "./components/Stylists";
 import CustomSection from "./components/CustomSection";
+import Amenities from "./components/Amenities";
+import BookingAddons from "./components/BookingAddons";
+import Stats from "./components/Stats";
+import Quiz from "./components/Quiz";
+import Tiers from "./components/Tiers";
 import { StrandBackdrop, ToastHost, Wave } from "./components/Ornaments";
 import { useConfig, type Slot } from "./lib/config";
 import { useTheme } from "./lib/hooks";
@@ -54,6 +59,7 @@ export default function App() {
   const SECTION_BG: Record<string, string> = {
     services: "var(--bg-soft)", transformations: "var(--bg)", stylists: "var(--bg)",
     consultation: "var(--bg-soft)", mirror: "var(--bg-soft)", booking: "var(--bg)", experience: "var(--bg-soft)",
+    amenities: "var(--bg-soft)", stats: "var(--bg-deep)", quiz: "var(--bg-soft)", tiers: "var(--bg)", "booking-addons": "var(--bg)",
   };
   const renderSection = (id: string) => {
     switch (id) {
@@ -64,6 +70,11 @@ export default function App() {
       case "mirror": return <Mirror onBook={handleBook} />;
       case "booking": return <Booking prefill={prefill} />;
       case "experience": return <Experience />;
+      case "amenities": return <Amenities />;
+      case "stats": return <Stats />;
+      case "quiz": return <Quiz />;
+      case "tiers": return <Tiers />;
+      case "booking-addons": return <BookingAddons />;
       default: return null;
     }
   };
