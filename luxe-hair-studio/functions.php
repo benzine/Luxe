@@ -555,3 +555,4 @@ require get_template_directory() . '/inc/enqueue.php';
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/rest.php';
 require get_template_directory() . '/inc/demo-import.php';
+require get_template_directory() . '/inc/translate.php';
