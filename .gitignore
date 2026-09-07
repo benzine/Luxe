@@ -2,25 +2,29 @@
 # Build artifacts
 dist/
 *.zip
-*.tar.gz
-
-# Dependencies
-node_modules/
-
-# Logs and temp files
-*.log
-*.tmp
 
 # Environment
 .env
 .env.local
 *.env.*
 
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+
 # Editors
 .vscode/
 .idea/
 
-# OS generated files
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# OS
 .DS_Store
 Thumbs.db
 ```

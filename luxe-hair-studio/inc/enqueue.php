@@ -28,9 +28,12 @@ function luxe_enqueue_app() {
 	   script's URL, and a ?ver= query string would make those relative
 	   resolutions ambiguous. The version is still printed in style.css
 	   header for reference. */
-	wp_register_script( 'luxe-jszip', $uri . '/assets/jszip.min.js', array(), null, true );
-	wp_register_script( 'luxe-vision', $uri . '/assets/vision_bundle.js', array( 'luxe-jszip' ), null, true );
-	wp_enqueue_script( 'luxe-app', $uri . '/assets/bundle.js', array( 'luxe-jszip', 'luxe-vision' ), null, true );
+	
+	// Load JSZip from CDN to avoid module/export issues with local files
+	wp_register_script( 'luxe-jszip-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js', array(), '3.10.1', true );
+	
+	// Main app depends on JSZip being available globally
+	wp_enqueue_script( 'luxe-app', $uri . '/assets/bundle.js', array( 'luxe-jszip-cdn' ), null, true );
 
 	/* Spec bridge: runtime settings + REST endpoint for the app. */
 	wp_localize_script(
