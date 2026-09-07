@@ -1,68 +1,37 @@
-```
-# Build artifacts
-dist/
-build/
-*.css
-*.js
-*.zip
-*.txt
-
-# Dependencies
-node_modules/
+# Logs and temp files
+*.log
+*.tmp
+*.swp
 
 # Environment
 .env
 .env.local
 *.env.*
 
+# Dependencies
+node_modules/
+vendor/
+
 # Editors
 .vscode/
 .idea/
 
-# Logs and temp files
-*.log
-*.tmp
+# OS generated files
+.DS_Store
+Thumbs.db
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css
+*.map
 
-# Compiled
-*.o
-*.obj
-*.so
-*.a
-*.dll
-*.exe
+# PHP specific
+*.php~
+*.bak
+*.backup
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# Compressed
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
-*.zst
-*.lz4
-*.lzh
-*.cab
-*.arj
-*.rpm
-*.deb
-*.Z
-*.lz
-*.lzo
-*.tar.gz
-*.tar.bz2
-*.tar.xz
-*.tar.zst
-```
+# Cache directories
+.cache/
+.cached/
