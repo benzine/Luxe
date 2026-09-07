@@ -315,8 +315,8 @@ export default function Hero() {
                 <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#f7f1e7]/78" style={{ opacity: subRise, transform: `translateY(${(1 - subRise) * 14}px)` }}>{sf(i, "sub", s.sub)}</p>
                 {/* CTAs under each tagline — rise after subtitle */}
                 <div className="mt-7 flex flex-col items-start gap-3" style={{ opacity: btnRise, transform: `translateY(${(1 - btnRise) * 14}px)` }}>
-                  <button onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="btn-sheen rounded-full border border-gold/70 px-8 py-3.5 font-mono text-[11px] uppercase tracking-[0.24em] text-[#f7f1e7]">{t("hero.cta", "Book your transformation")}</button>
-                  <button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="link-draw font-accenti text-lg text-[#f7f1e7]/85">{t("hero.wander", "Wander the menu")}</button>
+                  <button onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="btn-sheen rounded-full border border-gold/70 px-8 py-3.5 font-mono text-[11px] uppercase tracking-[0.24em] text-[#f7f1e7]">Book Your Transformation</button>
+                  <button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="link-draw font-accenti text-lg text-[#f7f1e7]/85">Wander the menu</button>
                 </div>
               </div>
             );

@@ -164,11 +164,11 @@ export function FloatingDock() {
         </div>
       )}
 
-      {/* the dock pill: booking (prominent) → concierge → back-to-top */}
+      {/* the dock pill: book a chair (prominent) → concierge → back-to-top */}
       <div className="flex flex-col items-center gap-2.5 rounded-full border border-linec bg-surface/90 p-2.5 shadow-[var(--shadow-lift)] backdrop-blur-md">
-        <button onClick={goBooking} data-cursor="hand" aria-label={t("dock.bookNow", "Book now")} title={t("dock.bookNow", "Book now")}
+        <button onClick={goBooking} data-cursor="hand" aria-label={t("dock.bookChair", "Book a Chair")} title={t("dock.bookChair", "Book a Chair")}
           className="btn-sheen flex h-12 w-12 items-center justify-center rounded-full border border-gold/70 bg-gold text-[#2b1f1f] transition-all hover:-translate-y-0.5">
-          <Ic.Clock className="h-5 w-5" />
+          <Ic.Chair className="h-5 w-5" />
         </button>
         <button onClick={() => { setOpen((o) => !o); setSeen(true); }} data-cursor="hand" aria-label={t("dock.concierge", "Concierge")} title={t("dock.concierge", "Concierge")}
           className="flex h-11 w-11 items-center justify-center rounded-full border border-rosedeep/50 text-rosedeep transition-all hover:-translate-y-0.5">

@@ -71,6 +71,7 @@ export default function App() {
       case "booking": return <Booking prefill={prefill} />;
       case "experience": return <Experience />;
       case "amenities": return <Amenities />;
+      case "marquee": return <MarqueeRibbon />;
       case "stats": return <Stats />;
       case "quiz": return <Quiz />;
       case "tiers": return <Tiers />;
