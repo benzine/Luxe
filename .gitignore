@@ -1,5 +1,5 @@
 ```
 # Build artifacts
-luxe-hair-studio/assets/*.js
-luxe-hair-studio/assets/*.css
+luxe-hair-studio/assets/bundle.css
+luxe-hair-studio/assets/bundle.js
 ```
