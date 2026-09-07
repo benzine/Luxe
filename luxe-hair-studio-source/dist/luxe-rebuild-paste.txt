@@ -2036,8 +2036,8 @@ export default function Hero() {
                   <span className="pointer-events-none absolute -inset-y-4 left-0 w-1/3 -skew-x-12 mix-blend-screen" style={{ opacity: shine, background: "linear-gradient(100deg, transparent 20%, rgba(245,230,211,0.4) 50%, transparent 80%)", transform: `translateX(${-140 + shine * 420}%) skewX(-12deg)` }} />
                 </h1>
                 <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#f7f1e7]/78" style={{ opacity: subRise, transform: `translateY(${(1 - subRise) * 14}px)` }}>{sf(i, "sub", s.sub)}</p>
-                {/* CTAs under each tagline */}
-                <div className="mt-8 flex flex-wrap items-center gap-4" style={{ opacity: btnRise, transform: `translateY(${(1 - btnRise) * 14}px)` }}>
+                {/* CTAs under each tagline — rise after subtitle */}
+                <div className="mt-7 flex flex-col items-start gap-3" style={{ opacity: btnRise, transform: `translateY(${(1 - btnRise) * 14}px)` }}>
                   <button onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="btn-sheen rounded-full border border-gold/70 px-8 py-3.5 font-mono text-[11px] uppercase tracking-[0.24em] text-[#f7f1e7]">{t("hero.cta", "Book your transformation")}</button>
                   <button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="link-draw font-accenti text-lg text-[#f7f1e7]/85">{t("hero.wander", "Wander the menu")}</button>
                 </div>

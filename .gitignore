@@ -1,5 +1,12 @@
 ```
 # Build artifacts
-luxe-hair-studio/assets/bundle.css
-luxe-hair-studio/assets/bundle.js
+dist/
+*.js
+*.css
+
+# Compressed files
+*.zip
+
+# Temp files
+*.txt
 ```
