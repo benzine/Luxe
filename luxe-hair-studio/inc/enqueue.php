@@ -28,7 +28,9 @@ function luxe_enqueue_app() {
 	   script's URL, and a ?ver= query string would make those relative
 	   resolutions ambiguous. The version is still printed in style.css
 	   header for reference. */
-	wp_enqueue_script( 'luxe-app', $uri . '/assets/bundle.js', array(), null, true );
+	wp_register_script( 'luxe-jszip', $uri . '/assets/jszip.min.js', array(), null, true );
+	wp_register_script( 'luxe-vision', $uri . '/assets/vision_bundle.js', array( 'luxe-jszip' ), null, true );
+	wp_enqueue_script( 'luxe-app', $uri . '/assets/bundle.js', array( 'luxe-jszip', 'luxe-vision' ), null, true );
 
 	/* Spec bridge: runtime settings + REST endpoint for the app. */
 	wp_localize_script(
