@@ -212,6 +212,87 @@ function luxe_merged_config() {
 
 	/* Add a version stamp so React can detect when server config changes.
 	   This also helps bust any stale localStorage caching. */
+	/* ── Front-end compatibility fixes ──────────────────────────────
+	   The compiled Vite build predates some sections (Amenities, Tiers,
+	   Stats, BookingAddons) being wired into renderSection(). We expose
+	   their data at well-known keys so a small runtime patch can render
+	   them into the page. Also ensure docks default to ON. */
+
+	/* 1. Docks: right = concierge/chatbot + book; left = language/access */
+	if ( ! isset( $config['design']['dockRight'] ) ) { $config['design']['dockRight'] = true; }
+	if ( ! isset( $config['design']['dockLeft'] ) )  { $config['design']['dockLeft']  = true; }
+
+	/* 2. Alias content arrays to both names the JS may look for.
+	   The PHP stores under content.*; older builds read from the top level;
+	   newer patched builds read from content.*. Publish both. */
+	$content_aliases = array(
+		'amenities'       => 'amenities',
+		'bookingAddons'   => 'bookingAddons',
+		'scents'          => 'scents',
+		'marquee'         => 'marqueeWords',   /* JS source calls it marqueeWords */
+		'stats'           => 'stats',
+		'quiz'            => 'quizQuestions',  /* JS source calls it quizQuestions */
+		'consult'         => 'consult',
+		'products'        => 'products',
+		'packages'        => 'packages',
+		'testimonials'    => 'testimonials',
+		'services'        => 'services',
+		'stylists'        => 'stylists',
+		'gallery'         => 'gallery',
+		'tiers'           => 'tiers',
+		'bookingSteps'    => 'bookingSteps',
+		'conciergeChips'  => 'conciergeChips',
+		'galleryFilters'  => 'galleryFilters',
+		'labels'          => 'labels',
+	);
+	foreach ( $content_aliases as $content_key => $top_key ) {
+		if ( isset( $config['content'][ $content_key ] ) && ! isset( $config[ $top_key ] ) ) {
+			$config[ $top_key ] = $config['content'][ $content_key ];
+		}
+	}
+
+	/* 2b. Also copy ALL remaining content.* objects to the top level.
+	   The reference bundle reads hero CTAs, salon identity, section
+	   headings, footer text, etc. from cfg.hero / cfg.salon / cfg.headings
+	   (top level), not cfg.content.hero. Copy only keys that don't already
+	   exist at the top level to avoid clobbering design/slots/etc. */
+	$protected_top_keys = array( 'design', 'slots', 'concierge', 'library', 'mirror',
+		'translations', 'autoTranslate', 'auth', '_version', '_updated',
+		'__frontend_sections', 'customCss', 'logoUrl', 'images', 'stages' );
+	if ( isset( $config['content'] ) && is_array( $config['content'] ) ) {
+		foreach ( $config['content'] as $key => $value ) {
+			if ( ! in_array( $key, $protected_top_keys, true ) && ! isset( $config[ $key ] ) ) {
+				$config[ $key ] = $value;
+			}
+		}
+	}
+
+	/* 3. Also publish a flat __frontend_sections list telling the runtime
+	   patch exactly which extra sections to render and in what order. */
+	$config['__frontend_sections'] = array();
+	if ( ! empty( $config['slots'] ) && is_array( $config['slots'] ) ) {
+		foreach ( $config['slots'] as $slot ) {
+			$sid = isset( $slot['id'] ) ? $slot['id'] : '';
+			if ( in_array( $sid, array( 'amenities', 'stats', 'quiz', 'tiers', 'booking-addons', 'marquee' ), true ) ) {
+				$config['__frontend_sections'][] = array(
+					'id'      => $sid,
+					'enabled' => isset( $slot['enabled'] ) ? $slot['enabled'] : true,
+				);
+			}
+		}
+	}
+
+	/* 4. Ensure hero CTAs are populated — the build renders buttons from
+	   content.hero.cta and content.hero.cta2. */
+	if ( isset( $config['content']['hero'] ) && is_array( $config['content']['hero'] ) ) {
+		if ( empty( $config['content']['hero']['cta'] ) ) {
+			$config['content']['hero']['cta'] = 'Book your transformation';
+		}
+		if ( empty( $config['content']['hero']['cta2'] ) ) {
+			$config['content']['hero']['cta2'] = 'Wander the menu';
+		}
+	}
+
 	$config['_version'] = LUXE_VERSION;
 	$config['_updated'] = get_option( 'luxe_config_updated', time() );
 

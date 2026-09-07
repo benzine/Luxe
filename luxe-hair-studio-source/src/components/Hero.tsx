@@ -291,6 +291,7 @@ export default function Hero() {
             const subRise = seg(p, inStart + 0.05, inStart + 0.085);
             const hairline = seg(p, inStart, inStart + 0.04);
             const shine = bell(seg(p, inStart, inStart + 0.1), 0.6, 0.22);
+            const btnRise = seg(p, inStart + 0.085, inStart + 0.14);
             return (
               <div key={s.kicker} className="absolute inset-x-0 bottom-0" style={{ opacity: op, transform: `translateY(${(1 - rise) * 30 - exit * 26}px)` }} aria-hidden={op < 0.5}>
                 <p className="font-mono flex items-center gap-3 text-[11px] uppercase tracking-[0.3em]" style={{ color: s.accent }}>
@@ -312,6 +313,11 @@ export default function Hero() {
                   <span className="pointer-events-none absolute -inset-y-4 left-0 w-1/3 -skew-x-12 mix-blend-screen" style={{ opacity: shine, background: "linear-gradient(100deg, transparent 20%, rgba(245,230,211,0.4) 50%, transparent 80%)", transform: `translateX(${-140 + shine * 420}%) skewX(-12deg)` }} />
                 </h1>
                 <p className="mt-4 max-w-md text-[15px] leading-relaxed text-[#f7f1e7]/78" style={{ opacity: subRise, transform: `translateY(${(1 - subRise) * 14}px)` }}>{sf(i, "sub", s.sub)}</p>
+                {/* CTAs under each tagline — rise after subtitle */}
+                <div className="mt-7 flex flex-col items-start gap-3" style={{ opacity: btnRise, transform: `translateY(${(1 - btnRise) * 14}px)` }}>
+                  <button onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="btn-sheen rounded-full border border-gold/70 px-8 py-3.5 font-mono text-[11px] uppercase tracking-[0.24em] text-[#f7f1e7]">{t("hero.cta", "Book your transformation")}</button>
+                  <button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="link-draw font-accenti text-lg text-[#f7f1e7]/85">{t("hero.wander", "Wander the menu")}</button>
+                </div>
               </div>
             );
           })}
@@ -324,12 +330,7 @@ export default function Hero() {
           <span className="font-mono text-[10px] tabular-nums tracking-[0.2em] text-[#f7f1e7]/40">/ {String(N).padStart(2, "0")}</span>
         </div>
 
-        {/* ── CTAs rise on the final look ── */}
-        <div className="absolute bottom-[15svh] right-6 z-30 hidden flex-col items-end gap-3 lg:flex" style={{ opacity: seg(p, 1 - (OUTRO + 0.5) / TOTAL, 1 - OUTRO / TOTAL), transform: `translateY(${(1 - seg(p, 1 - (OUTRO + 0.5) / TOTAL, 1 - OUTRO / TOTAL)) * 24}px)` }}>
-          <div className="h-px w-16 origin-right bg-[#c9b037]" style={{ transform: `scaleX(${seg(p, 1 - (OUTRO + 0.5) / TOTAL, 1 - OUTRO / TOTAL)})` }} />
-          <button onClick={() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="btn-sheen rounded-full border border-gold/70 px-8 py-3.5 font-mono text-[11px] uppercase tracking-[0.24em] text-[#f7f1e7]">{t("hero.cta", "Book your transformation")}</button>
-          <button onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })} data-cursor="hand" className="link-draw font-accenti text-lg text-[#f7f1e7]/85">{t("hero.wander", "or wander the menu")}</button>
-        </div>
+        {/* ── Remove duplicate CTAs from right side (now under each title) ── */}
 
         {/* ── titled progress rail ── */}
         <div className="absolute right-7 top-1/2 z-30 hidden -translate-y-1/2 flex-col items-center gap-5 lg:flex" aria-hidden="true">

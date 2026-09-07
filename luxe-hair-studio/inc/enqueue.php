@@ -2,6 +2,12 @@
 /**
  * Enqueue the compiled Luxe React application and bridge settings to it.
  *
+ * Uses the Vite production build from /assets/build/ which dynamically
+ * loads the FULL Atelier Console chunk (Console-Dk6VjiOx.js) with all
+ * section editors (Amenities, Booking Add-ons, Tiers, Stats, Quiz, etc.).
+ * The "patched" entry script normalizes config reads to content.* paths
+ * that match what WordPress PHP publishes.
+ *
  * Uses the script_loader_tag filter to guarantee type="module" is added,
  * since wp_script_add_data('type','module') can be suppressed by some
  * WordPress configurations or security plugins.
@@ -13,7 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 function luxe_enqueue_app() {
 	$uri = get_template_directory_uri();
 
-	/* The compiled application — byte-identical to the demo build. */
+	/* The compiled application — uses index.css from assets/build/
+	   (includes the Atelier Console width fix). */
 	wp_enqueue_style( 'luxe-app', $uri . '/assets/build/index.css', array(), LUXE_VERSION );
 
 	wp_enqueue_style(
@@ -26,9 +33,16 @@ function luxe_enqueue_app() {
 	/* Register the main app script. Version is intentionally null on the
 	   script itself: Vite resolves relative chunk URLs against the main
 	   script's URL, and a ?ver= query string would make those relative
-	   resolutions ambiguous. The version is still printed in style.css
-	   header for reference. */
-	wp_enqueue_script( 'luxe-app', $uri . '/assets/build/index-BDKRCmi6.js', array(), null, true );
+	   resolutions ambiguous. The main script dynamically loads its own
+	   chunks (Console-Dk6VjiOx.js, vision_bundle, jszip) from the same
+	   /assets/build/ directory via ES module imports. */
+	wp_enqueue_script(
+		'luxe-app',
+		$uri . '/assets/build/index-BDKRCmi6-patched.js',
+		array(),
+		null,
+		true
+	);
 
 	/* Spec bridge: runtime settings + REST endpoint for the app. */
 	wp_localize_script(
@@ -45,8 +59,10 @@ add_action( 'wp_enqueue_scripts', 'luxe_enqueue_app' );
 
 /**
  * Force type="module" on the main app script tag.
- * This is the reliable method — works on all WordPress 5.0+ installs
- * and survives plugin conflicts that strip wp_script_add_data attributes.
+ * The Vite build uses ES module syntax throughout (import/export) and
+ * dynamically loads code-split chunks (Console, vision). Loading as a
+ * classic script would cause "SyntaxError: export declarations may only
+ * appear at top level of a module".
  */
 function luxe_script_module_tag( $tag, $handle ) {
 	if ( 'luxe-app' === $handle && false === strpos( $tag, 'type="module"' ) ) {
@@ -62,7 +78,7 @@ add_filter( 'script_loader_tag', 'luxe_script_module_tag', 10, 2 );
  */
 function luxe_strip_script_version( $src ) {
 	if ( is_admin() ) { return $src; }
-	if ( false !== strpos( $src, 'assets/build/index-BDKRCmi6.js' ) ) {
+	if ( false !== strpos( $src, 'assets/build/index-BDKRCmi6-patched.js' ) ) {
 		$src = remove_query_arg( 'ver', $src );
 	}
 	return $src;
